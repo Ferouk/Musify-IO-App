@@ -1,0 +1,29 @@
+<div class="jumbotron">
+  <h1>Need music ?</h1>
+  <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <br>
+    <form>
+      <div class="form-group label-floating">
+        <label class="control-label" for="search">Search Music</label>
+        <input class="form-control" name="SearchStr" (keyup)="SearchMusic()" [(ngModel)]="SearchStr" id="search" type="text">
+      </div>
+    </form>
+</div>
+<div *ngIf="searchRes" class="list-group">
+  <div *ngFor="let res of searchRes">
+  <div class="list-group-item">
+    <div class="row-picture">
+      <a routerLink="/artist/{{res.id}}">
+        <img class="circle" *ngIf="res.images.length > 0" src="{{res.images[2].url}}" alt="{{res.name}} picture">
+        <img class="circle" *ngIf="res.images.length == 0" src="http://shackmanlab.org/wp-content/uploads/2013/07/person-placeholder.jpg" alt="{{res.name}} picture">
+      </a>
+    </div>
+    <div class="row-content">
+      <h4 class="list-group-item-heading"><a routerLink="/artist/{{res.id}}">{{res.name}}</a></h4>
+      <p class="list-group-item-text text-muted"> Genres: <span class="label label-primary spacing" *ngFor="let genre of res.genres">{{genre}}</span></p>
+    </div>
+  </div>
+  <div class="list-group-separator"></div>
+  </div>
+</div>
+

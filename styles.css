@@ -1,0 +1,16 @@
+html{
+  font-family: 'Roboto', sans-serif;
+}
+
+.spacing{
+  margin-right: 5px;
+}
+.panel-body img{
+  width:100%;
+  height:auto;
+}
+.col-md-3 .circle{
+  border-radius:100%;
+  width: 100%;
+  height: auto;
+}

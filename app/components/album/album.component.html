@@ -1,0 +1,50 @@
+<div *ngIf="album">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-3">
+        <img *ngIf="album.images.length > 0" src="{{album.images[0].url}}" alt="{{album.name}} picture" class="img-thumbnail">
+        <img *ngIf="album.images.length == 0" src="http://shackmanlab.org/wp-content/uploads/2013/07/person-placeholder.jpg" alt="{{album.name}} picture" class="img-thumbnail">
+      </div>
+      <div class="col-md-9">
+        <h1>{{album.name}}</h1>
+        <p *ngIf="album.copyrights.length > 0"> {{album.copyrights[0].text}} <span class="label label-info spacing">{{album.copyrights[0].type}}</span></p>
+        <p *ngIf="album.release_date">Release date: <strong>{{album.release_date}}</strong></p>
+        <p *ngIf="album.genres.length > 0">Genres: <span class="label label-primary spacing" *ngFor="let genre of album.genres">{{genre}}</span></p>
+        <p *ngIf="album.artists.length > 0"> <a class="btn btn-primary btn-raised btn-sm spacing" *ngFor="let artist of album.artists" routerLink="/artist/{{artist.id}}"><i class="fa fa-user"></i> {{artist.name}}</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <br>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Tracks :</h3>
+
+      <div class="list-group">
+        <div class="list-group-item" *ngFor="let track of album.tracks.items">
+          <div class="row-action-primary">
+            <i class="fa fa-play" aria-hidden="true"></i>
+          </div>
+          <div class="row-content">
+            <div class="least-content">10m</div>
+            <h4 class="list-group-item-heading">{{ track.name }}
+              <span class="label label-info spacing" *ngIf="track.disc_number">Disk {{track.disc_number}}</span>
+              <span class="label label-danger" *ngIf="track.explicit == true">Explicit</span>
+            </h4>
+
+            <p class="list-group-item-text">
+              <audio controls preload="none">
+                <source src="{{track.preview_url}}" type="audio/mpeg">
+                Your browser does not support the audio element.
+              </audio>
+              <button type="button" class="btn btn-danger btn-sm btn-raised" data-toggle="modal" [attr.data-target]="'#modal-' + track.id"> <i class="fa fa-youtube-play" aria-hidden="true"></i> On YT</button>
+              <youtube [q]="album.artists[0].name +' '+track.name" [spotifyId]="track.id"></youtube>
+            </p>
+          </div>
+          <div class="list-group-separator"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
